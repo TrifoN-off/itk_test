@@ -74,10 +74,6 @@ class WalletService:
             new_balance = current_balance + amount
         elif operation_type == OperationType.WITHDRAW:
             new_balance = current_balance - amount
-        else:
-            raise HTTPException(
-                status_code=400, detail='Invalid operation type'
-            )
         return new_balance
 
     def _validate_balance(self, balance: int):

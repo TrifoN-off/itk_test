@@ -15,7 +15,7 @@ app.include_router(v1_router, prefix='/api')
 async def root():
     """Главная страница."""
     return {
-        'message': 'Wallet API',
+        'message': f'{settings.app_name}',
         'docs': '/docs',
         'health_check': '/health'
     }

@@ -12,19 +12,12 @@ class OperationType(str, Enum):
 
 
 class WalletOperationRequest(BaseModel):
-    operation_type: OperationType = Field(
-        ...,
-        description='Operation type'
-    )
-    amount: int = Field(
-        ...,
-        gt=0,
-        description='Operation amount'
-    )
+    operation_type: OperationType = Field(...)
+    amount: int = Field(..., gt=0)
 
 
 class WalletCreate(BaseModel):
-    balance: Optional[int] = Field(default=WALLET_BALANCE_DEFAULT)
+    balance: Optional[int] = Field(ge=0, default=WALLET_BALANCE_DEFAULT)
 
 
 class WalletResponse(BaseModel):

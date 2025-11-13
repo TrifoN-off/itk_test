@@ -33,7 +33,7 @@ async def get_wallet(
     status_code=status.HTTP_201_CREATED
 )
 async def create_wallet(
-    wallet_data: WalletCreate = Depends(),
+    wallet_data: WalletCreate,
     db: AsyncSession = Depends(get_db)
 ) -> WalletResponse:
     """Создать кошелек."""
@@ -47,7 +47,7 @@ async def create_wallet(
 )
 async def update_wallet_balance(
     wallet_uuid: UUID,
-    wallet_request: WalletOperationRequest = Depends(),
+    wallet_request: WalletOperationRequest,
     db: AsyncSession = Depends(get_db)
 ) -> WalletResponse:
     """Обновить баланс кошелька."""
