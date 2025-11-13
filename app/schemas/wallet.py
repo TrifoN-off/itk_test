@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, Field, UUID4, ConfigDict
+from pydantic import UUID4, BaseModel, ConfigDict, Field
 
 from app.models.wallet import WALLET_BALANCE_DEFAULT
 

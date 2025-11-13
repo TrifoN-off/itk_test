@@ -4,13 +4,9 @@ from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.wallet import WALLET_BALANCE_MIN, Wallet
-from app.schemas.wallet import (
-    WalletCreate,
-    WalletOperationRequest,
-    WalletResponse,
-    OperationType,
-)
 from app.repositories.wallet_repository import WalletRepository
+from app.schemas.wallet import (OperationType, WalletCreate,
+                                WalletOperationRequest, WalletResponse)
 
 
 class WalletService:

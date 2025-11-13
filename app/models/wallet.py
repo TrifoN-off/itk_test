@@ -1,8 +1,8 @@
 import uuid
 
+from sqlalchemy import UUID, CheckConstraint, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql import func
-from sqlalchemy import UUID, CheckConstraint, DateTime
 
 from app.database import Base
 

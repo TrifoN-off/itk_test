@@ -4,13 +4,9 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
-from app.schemas.wallet import (
-    WalletCreate,
-    WalletOperationRequest,
-    WalletResponse,
-)
+from app.schemas.wallet import (WalletCreate, WalletOperationRequest,
+                                WalletResponse)
 from app.services.wallet_service import WalletService
-
 
 router = APIRouter(
     prefix='/wallets',
