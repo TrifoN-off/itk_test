@@ -26,7 +26,7 @@ router = APIRouter(
 async def get_wallet(
     wallet_uuid: UUID,
     db: AsyncSession = Depends(get_db)
-):
+) -> WalletResponse:
     """Получить информацию о кошельке."""
     return await WalletService(db).get_by_uuid(wallet_uuid)
 
@@ -39,7 +39,7 @@ async def get_wallet(
 async def create_wallet(
     wallet_data: WalletCreate = Depends(),
     db: AsyncSession = Depends(get_db)
-):
+) -> WalletResponse:
     """Создать кошелек."""
     return await WalletService(db).create(wallet_data)
 
@@ -53,6 +53,6 @@ async def update_wallet_balance(
     wallet_uuid: UUID,
     wallet_request: WalletOperationRequest = Depends(),
     db: AsyncSession = Depends(get_db)
-):
+) -> WalletResponse:
     """Обновить баланс кошелька."""
     return await WalletService(db).update_balance(wallet_request, wallet_uuid)
