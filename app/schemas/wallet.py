@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field, UUID4, ConfigDict
 
-from models.wallet import WALLET_BALANCE_DEFAULT
+from app.models.wallet import WALLET_BALANCE_DEFAULT
 
 
 class OperationType(str, Enum):

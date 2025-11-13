@@ -4,8 +4,8 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from models.wallet import Wallet
-from schemas.wallet import WalletCreate
+from app.models.wallet import Wallet
+from app.schemas.wallet import WalletCreate
 
 
 class WalletRepository:
@@ -17,7 +17,7 @@ class WalletRepository:
         """Создать новый кошелек."""
         db_wallet = Wallet(**wallet_data.model_dump())
         self.db.add(db_wallet)
-        await self.db.commit()
+        await self.db.flush()
         await self.db.refresh(db_wallet)
         return db_wallet
 
@@ -43,6 +43,6 @@ class WalletRepository:
     async def update_balance(self, wallet: Wallet, new_balance: int) -> Wallet:
         """Обновить баланс кошелька."""
         wallet.balance = new_balance
-        await self.db.commit()
+        await self.db.flush()
         await self.db.refresh(wallet)
         return wallet
