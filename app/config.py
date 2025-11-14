@@ -11,7 +11,7 @@ class Settings(BaseSettings):
 
     postgres_user: str = 'dev_user'
     postgres_password: str = 'dev_password'
-    postgres_host: str = 'db'
+    postgres_host: str = 'localhost'
     postgres_port: int = 5432
     postgres_db: str = 'mydatabase'
 

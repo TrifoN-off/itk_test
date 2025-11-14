@@ -16,19 +16,29 @@ class WalletService:
 
     async def get_by_uuid(self, wallet_uuid: UUID) -> WalletResponse:
         """Получить кошелек по uuid."""
-        wallet = await self.repository.get_by_uuid(wallet_uuid)
-        if not wallet:
-            raise HTTPException(status_code=404, detail='Wallet not found')
-        return WalletResponse.model_validate(wallet)
+        try:
+            wallet = await self.repository.get_by_uuid(wallet_uuid)
+            if not wallet:
+                raise HTTPException(status_code=404, detail='Wallet not found')
+            return WalletResponse.model_validate(wallet)
+        except HTTPException:
+            raise
+        except Exception:
+            raise HTTPException(status_code=500)
 
     async def get_by_uuid_with_lock(
         self, wallet_uuid: UUID
     ) -> Wallet:
         """Получить кошелек по uuid с блокировкой."""
-        wallet = await self.repository.get_by_uuid_with_lock(wallet_uuid)
-        if not wallet:
-            raise HTTPException(status_code=404, detail='Wallet not found')
-        return wallet
+        try:
+            wallet = await self.repository.get_by_uuid_with_lock(wallet_uuid)
+            if not wallet:
+                raise HTTPException(status_code=404, detail='Wallet not found')
+            return wallet
+        except HTTPException:
+            raise
+        except Exception:
+            raise HTTPException(status_code=500)
 
     async def create(self, wallet_data: WalletCreate) -> WalletResponse:
         try:
@@ -37,10 +47,7 @@ class WalletService:
             return WalletResponse.model_validate(wallet)
         except Exception:
             await self.db.rollback()
-            raise HTTPException(
-                status_code=500,
-                detail='Internal server error'
-            )
+            raise HTTPException(status_code=500)
 
     async def update_balance(
         self, wallet_request: WalletOperationRequest, wallet_uuid: UUID
@@ -62,9 +69,7 @@ class WalletService:
             raise
         except Exception:
             await self.db.rollback()
-            raise HTTPException(
-                status_code=500, detail='Internal server error'
-            )
+            raise HTTPException(status_code=500)
 
     def _calculate_new_balance(
         self, current_balance: int, operation_type: OperationType, amount: int
