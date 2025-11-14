@@ -10,6 +10,7 @@ from app.schemas.wallet import (OperationType, WalletCreate,
 
 
 class WalletService:
+    """Сервис для работы с кошельками."""
     def __init__(self, db: AsyncSession):
         self.db = db
         self.repository = WalletRepository(db)
@@ -41,6 +42,7 @@ class WalletService:
             raise HTTPException(status_code=500)
 
     async def create(self, wallet_data: WalletCreate) -> WalletResponse:
+        """Создать кошелек."""
         try:
             wallet = await self.repository.create(wallet_data)
             await self.db.commit()
