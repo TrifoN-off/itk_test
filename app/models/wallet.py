@@ -1,3 +1,4 @@
+from datetime import datetime
 import uuid
 
 from sqlalchemy import UUID, CheckConstraint, DateTime
@@ -13,7 +14,7 @@ WALLET_BALANCE_MIN = 0          # Минимальный баланс
 class Wallet(Base):
     __tablename__ = 'wallets'
 
-    id: Mapped[UUID] = mapped_column(
+    id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         primary_key=True,
         default=uuid.uuid4
@@ -22,12 +23,12 @@ class Wallet(Base):
         nullable=False,
         default=WALLET_BALANCE_DEFAULT
     )
-    created_at: Mapped[DateTime] = mapped_column(
+    created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
         server_default=func.now()
     )
-    updated_at: Mapped[DateTime] = mapped_column(
+    updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
         server_default=func.now(),
